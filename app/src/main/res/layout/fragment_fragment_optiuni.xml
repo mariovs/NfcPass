@@ -1,0 +1,94 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.mario22gmail.license.nfc_writer.FragmentOptiuni">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="7dp"
+            android:background="#FFC107"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="WebsiteAuthenticationFragmentClick"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageViewAccesareSite"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_gravity="left|top"
+                    android:background="@drawable/globalicon" />
+
+                <TextView
+                    android:id="@+id/textViewChooseWeb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="72dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="74dp"
+                    android:text="Accesare site-uri web"
+                    android:textColor="#fff"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#9C27B0"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageViewAccesareSite2"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_gravity="left|top"
+                    android:background="@drawable/cloudicon" />
+
+                <TextView
+                    android:id="@+id/textViewChooseWeb2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="72dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="74dp"
+                    android:text="Transfer fisiere"
+                    android:textColor="#fff"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+</FrameLayout>

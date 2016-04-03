@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Nfc Licenta</string>
+    <string name="action_settings">Settings</string>
+    <string name="editMessage">User  Name</string>
+    <string name="passMessage">Password</string>
+    <string name="buttonName">Write Nfc</string>
+    <string name="title_activity_display_message">My Message</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enterNfc">Enter</string>
+</resources>
