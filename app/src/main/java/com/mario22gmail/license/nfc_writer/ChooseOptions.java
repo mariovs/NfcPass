@@ -31,7 +31,6 @@ public class ChooseOptions extends Fragment {
 
 
     protected LayoutManagerType mCurrentLayoutManagerType;
-
     protected RadioButton mLinearLayoutRadioButton;
     protected RadioButton mGridLayoutRadioButton;
 
@@ -92,10 +91,6 @@ public class ChooseOptions extends Fragment {
 
         return rootView;
     }
-
-
-
-
 
     /**
      * Set RecyclerView's LayoutManager to the one given.
