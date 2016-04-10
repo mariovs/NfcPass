@@ -1,9 +1,6 @@
-package com.mario22gmail.license.nfc_writer;
+package com.mario22gmail.license.nfc_project;
 
-import android.app.Activity;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
@@ -56,7 +53,7 @@ import com.nxp.nfclib.utils.Utilities;
 //import com.nxp.nfcliblite.Nxpnfcliblitecallback;
 //import com.nxp.nfclib.cards.IDESFireEV1;
 
-import static com.mario22gmail.license.nfc_writer.R.id.nfcText;
+import static com.mario22gmail.license.nfc_project.R.id.nfcText;
 
 public class MainActivity extends AppCompatActivity {
 

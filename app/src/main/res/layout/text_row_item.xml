@@ -14,39 +14,68 @@
  limitations under the License.
 -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:layout_marginBottom="8dp"
-    android:layout_marginLeft="16dp"
+    android:layout_height="72dp"
     android:layout_marginRight="16dp"
-    android:layout_marginTop="8dp"
-    android:background="@color/colorPrimary"
     android:gravity="center_vertical">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="72dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/webLayoutLeft">
 
-        <TextView
-            android:id="@+id/textView"
+        <ImageView
+            android:id="@+id/imageViewWebItem"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+
+            android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginTop="24dp"
-            android:textColor="#fff"
-            android:textSize="14dp" />
-
-        <Button
-            android:id="@+id/buttonNavigareWebsite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="250dp"
-            android:background="@color/colorAccent"
-            android:text="Log in" />
-
+            android:layout_marginTop="16dp" />
     </RelativeLayout>
 
-</FrameLayout>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/RelativeLayoutWebItem"
+        android:layout_toLeftOf = "@+id/webLayoutRight"
+        android:layout_toRightOf = "@id/webLayoutLeft">
+
+        <TextView
+            android:id="@+id/textViewUrl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="28dp"
+            android:fontFamily="roboto"
+            android:paddingBottom="16dp"
+            android:text="ceva"
+            android:textAppearance="?android:attr/textAppearance" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:id="@+id/webLayoutRight">
+
+        <TextView
+            android:id="@+id/textViewWebLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="roboto"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:layout_gravity="right|center_vertical"
+            android:text="Log in"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

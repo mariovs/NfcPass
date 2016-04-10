@@ -1,30 +1,44 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:id="@+id/ChooseFragment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="#fff"
-    tools:context="com.mario22gmail.license.nfc_writer.ChooseOptions">
+    tools:context="com.mario22gmail.license.nfc_project.ChooseOptions">
 
 
-    <RadioButton
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="60dp"
+                android:scrollbars="vertical" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabChooseSites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New RadioButton"
-        android:id="@+id/linear_layout_rb"
-        android:layout_gravity="left|top" />
+        android:onClick="AddWebSiteFragment"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_menu_add" />
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New RadioButton"
-        android:id="@+id/grid_layout_rb"
-        android:layout_gravity="right|top" />
+    <!--<RadioButton-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="New RadioButton"-->
+    <!--android:id="@+id/linear_layout_rb"-->
+    <!--android:layout_gravity="left|top" />-->
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_marginTop="40dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical" />
+    <!--<RadioButton-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="New RadioButton"-->
+    <!--android:id="@+id/grid_layout_rb"-->
+    <!--android:layout_gravity="right|top" />-->
+
+
+
+
 </FrameLayout>

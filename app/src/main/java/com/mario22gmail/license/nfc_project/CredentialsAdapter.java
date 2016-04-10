@@ -1,4 +1,4 @@
-package com.mario22gmail.license.nfc_writer;
+package com.mario22gmail.license.nfc_project;
 
 /**
  * Created by Mario Vasile on 3/29/2016.
@@ -7,13 +7,16 @@ package com.mario22gmail.license.nfc_writer;
 
 
 import android.content.Intent;
-import android.net.Credentials;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,6 +34,7 @@ public class CredentialsAdapter extends RecyclerView.Adapter<CredentialsAdapter.
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
+        private final ImageView imageViewWebItem;
 
 
         public ViewHolder(View v) {
@@ -44,18 +48,17 @@ public class CredentialsAdapter extends RecyclerView.Adapter<CredentialsAdapter.
 //
 //                }
 //            });
-            Button button = (Button) v.findViewById(R.id.buttonNavigareWebsite);
-            button.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    Log.d("nfc_debug", "Element " + getPosition() + " clicked.");
-                }
-            });
-            textView = (TextView) v.findViewById(R.id.textView);
+            imageViewWebItem = (ImageView) v.findViewById(R.id.imageViewWebItem);
+            textView = (TextView) v.findViewById(R.id.textViewUrl);
+
         }
 
         public TextView getTextView() {
             return textView;
+        }
+        public ImageView getImageViewWebItem()
+        {
+            return imageViewWebItem;
         }
     }
 
@@ -84,8 +87,9 @@ public class CredentialsAdapter extends RecyclerView.Adapter<CredentialsAdapter.
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         Log.d(TAG, "Element " + position + " set.");
-        Button button = (Button) viewHolder.itemView.findViewById(R.id.buttonNavigareWebsite);
-        button.setOnClickListener(new View.OnClickListener() {
+
+        RelativeLayout relativeLayoutItem = (RelativeLayout) viewHolder.itemView.findViewById(R.id.RelativeLayoutWebItem);
+        relativeLayoutItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WebsitesCredentials credential =mDataSet.get(position);
@@ -98,7 +102,17 @@ public class CredentialsAdapter extends RecyclerView.Adapter<CredentialsAdapter.
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
 
-        viewHolder.getTextView().setText(mDataSet.get(position).getUserName());
+
+        String userName = mDataSet.get(position).getUserName();
+        if(userName.equals("maio"))
+        {
+            viewHolder.getImageViewWebItem().setImageResource(R.drawable.instagram);
+        }
+        else
+        {
+            viewHolder.getImageViewWebItem().setImageResource(R.drawable.facebook);
+        }
+        viewHolder.getTextView().setText("Facebook");
     }
 
     // Return the size of your dataset (invoked by the layout manager)

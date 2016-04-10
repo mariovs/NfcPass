@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.mario22gmail.license.nfc_writer"
+        applicationId "com.mario22gmail.license.nfc_project"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1

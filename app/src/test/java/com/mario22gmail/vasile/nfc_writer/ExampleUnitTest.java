@@ -1,4 +1,4 @@
-package com.mario22gmail.license.nfc_writer;
+package com.mario22gmail.license.nfc_project;
 
 import org.junit.Test;
 

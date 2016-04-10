@@ -1,11 +1,10 @@
-package com.mario22gmail.license.nfc_writer;
+package com.mario22gmail.license.nfc_project;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
-import android.net.Credentials;
 import android.nfc.NfcAdapter;
 import android.nfc.TagLostException;
 import android.os.Build;
@@ -14,8 +13,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -77,7 +75,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00};
-    private SecondFragment secondFragment=new SecondFragment();
+    private CardKeyView cardKeyView =new CardKeyView();
     private boolean isCardEmpty = true;
 
 
@@ -95,7 +93,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
 
         //inregistrez contextul si filtru
-        context.registerReceiver(mBroadcastReceiver, new IntentFilter("start.fragment.action"));
+        context.registerReceiver(logInWebsite, new IntentFilter("start.fragment.action"));
+        context.registerReceiver(customActionBarTitle, new IntentFilter("fragment.setTitle"));
         //set the main fragment
         MainFragment mainFragment = new MainFragment();
         ChangeFragment(mainFragment);
@@ -104,7 +103,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
 
         libInstance = NxpNfcLib.getInstance();
-        libInstance.registerActivity(this, "1b9f530ff2277ac77a257c9e497f2aaa");
+        libInstance.registerActivity(this, "5935fb1310d5da96b1bbd3a7c7e94951");
 
         try {
             ks = KeyStoreFactory.getInstance().getSoftwareKeyStore();
@@ -144,23 +143,89 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+//        getSupportActionBar().setHomeButtonEnabled(false);
     }
 
 
-    BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+    BroadcastReceiver logInWebsite = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             //This piece of code will be executed when you click on your item
             // Call your fragment...
             WebsitesCredentials credential = (WebsitesCredentials)intent.getSerializableExtra("myCredentials");
             Log.i(nfcDebugTag,"A ajuns aici");
-            js = "javascript:document.getElementsByName('email')[0].value = '" + credential.getUserName() + "';document.getElementsByName('pass')[0].value='" + credential.getPassword() +
-                    "';document.getElementsByName('login')[0].click();";
+            js = "javascript:if(document.getElementsByName('email')!= null){document.getElementsByName('email')[0].value = '" + credential.getUserName() + "';}if(document.getElementsByName('pass')!= null){document.getElementsByName('pass')[0].value='" + credential.getPassword() +
+                    "';}if(document.getElementsByName('login')!= null){document.getElementsByName('login')[0].click();}";
 
+            String logInJs = "javascript:setTimeout(function(){ if(document.getElementsByName('login_email')!= null){document.getElementsByName('login_email')[1].value = '" + credential.getUserName() + "';}},3000);" +
+                    "setTimeout(function(){if(document.getElementsByName('login_password')!= null){document.getElementsByName('login_password')[1].value='" + credential.getPassword() + "';}},3000);" +
+                    "setTimeout(function(){if(document.getElementsByClassName('login-button button-primary')!= null){document.getElementsByClassName('login-button button-primary')[0].click();}},5000);";
             BrowserFragment fragment = new BrowserFragment();
-            fragment.InitString(js);
+            fragment.InitString(logInJs);
             ChangeFragment(fragment);
         }
+    };
+
+    public String GenerateJavascript(WebsitesCredentials credential)
+    {
+        String logInJs = "";
+        switch(credential.getUrl()){
+            case WebSitesConstants.Facebook :
+                    logInJs = "javascript:if(document.getElementsByName('email')!= null){document.getElementsByName('email')[0].value = '"
+                            + credential.getUserName() + "';}if(document.getElementsByName('pass')!= null){document.getElementsByName('pass')[0].value='"
+                            + credential.getPassword() + "';}if(document.getElementsByName('login')!= null){document.getElementsByName('login')[0].click();}";
+                break;
+            case WebSitesConstants.Instagram :
+                 logInJs = "javascript:if(document.getElementsByClassName('_k6cv7')!= null){setTimeout(function(){ document.getElementsByClassName('_k6cv7')[0].click()},6000);}" +
+                        "setTimeout(function(){" + " " +
+                        "document.getElementsByName('username')[0].value = '" + credential.getUserName() + "';},8000);" +
+                        "setTimeout(function(){if(document.getElementsByName('password')!= null){document.getElementsByName('password')[0].value='" + credential.getPassword() + "';}},8000);" +
+                        "setTimeout(function(){if(document.getElementsByName('login')!= null){document.getElementsByTagName('button')[0].click();}" +
+                        "},11000);";
+                break;
+            case WebSitesConstants.LinkedIn:
+                 logInJs = "javascript: setTimeout(function(){if(document.getElementById('session_key-login')!= null){document.getElementById('session_key-login').value = '" + credential.getUserName() + "';}},2000);" +
+                        "setTimeout(function(){if(document.getElementById('session_password-login')!= null){document.getElementById('session_password-login').value='" + credential.getPassword() + "';}},2000);" +
+                        "setTimeout(function(){if(document.getElementsByClassName('btn-primary')[0] != null){document.getElementsByClassName('btn-primary')[0].click();}},5000);";
+                break;
+            case WebSitesConstants.MySpace:
+                break;
+            case WebSitesConstants.Twitter:
+                 logInJs = "javascript: setTimeout(function(){if(document.getElementById('session[username_or_email]')!= null){document.getElementById('session[username_or_email]').value = '" + credential.getUserName() + "';}},2000);" +
+                        "setTimeout(function(){if(document.getElementById('session[password]')!= null){document.getElementById('session[password]').value='" + credential.getPassword() + "';}},2000);" +
+                        "setTimeout(function(){if(document.getElementById('signupbutton') != null){document.getElementById('signupbutton').click();}},5000);";
+                break;
+            case WebSitesConstants.Gmail:
+                 logInJs = "javascript: setTimeout(function(){if(document.getElementById('Email')!= null){document.getElementById('Email').value = '" + credential.getUserName() + "';}},2000);" +
+                        "setTimeout(function(){if(document.getElementById('next') != null){document.getElementById('next').click();}},3000);"+
+                        "setTimeout(function(){if(document.getElementById('Passwd')!= null){document.getElementById('Passwd').value='" + credential.getPassword() + "';}},5000);" +
+                        "setTimeout(function(){if(document.getElementById('signIn') != null){document.getElementById('signIn').click();}},7000);";
+                break;
+            case WebSitesConstants.Dropbox:
+                 logInJs = "javascript:setTimeout(function(){ if(document.getElementsByName('login_email')!= null){document.getElementsByName('login_email')[1].value = '" + credential.getUserName() + "';}},3000);" +
+                        "setTimeout(function(){if(document.getElementsByName('login_password')!= null){document.getElementsByName('login_password')[1].value='" + credential.getPassword() + "';}},3000);" +
+                        "setTimeout(function(){if(document.getElementsByClassName('login-button button-primary')!= null){document.getElementsByClassName('login-button button-primary')[0].click();}},5000);";
+                break;
+
+
+
+        }
+        return logInJs;
+    }
+
+    BroadcastReceiver customActionBarTitle = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.i(nfcDebugTag, "A ajuns si aici");
+            String title = (String)intent.getSerializableExtra("Title");
+            getSupportActionBar().setTitle(title);
+//
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+////            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            boolean canback = getSupportFragmentManager().getBackStackEntryCount()>0;
+            getSupportActionBar().setDisplayHomeAsUpEnabled(canback);
+            }
     };
 
     public void ChangeFragment(Fragment fragment)
@@ -224,7 +289,14 @@ public class NavigationDrawerActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        if(id == android.R.id.home)
+        {
+            boolean canback = getSupportFragmentManager().getBackStackEntryCount()>0;
+            if(canback)
+            {
+                getFragmentManager().popBackStack();
+            }
+        }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
@@ -247,8 +319,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
             }
             else
             {
-                secondFragment = new SecondFragment();
-                ChangeFragment(secondFragment);
+                cardKeyView = new CardKeyView();
+                ChangeFragment(cardKeyView);
             }
 
         } catch (CloneDetectedException e) {
@@ -270,8 +342,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
             MainFragment mainFragment = new MainFragment();
            ChangeFragment(mainFragment);
         } else if (id == R.id.nav_gallery) {
-            secondFragment = new SecondFragment();
-            ChangeFragment(secondFragment);
+            cardKeyView = new CardKeyView();
+            ChangeFragment(cardKeyView);
 
         } else if (id == R.id.nav_slideshow) {
             FacebookCredentials fbFragment = new FacebookCredentials();
@@ -503,6 +575,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
                 Log.i(nfcDebugTag, "Applicatie authentificata");
                 card.getReader().setTimeout(5000);
 
+
                 FragmentOptiuni optiuni = new FragmentOptiuni();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.slide_left_animation, R.anim.slide_right_animation,R.anim.slide_left_back_animation,R.anim.slide_right_back_animation);
@@ -595,6 +668,12 @@ public class NavigationDrawerActivity extends AppCompatActivity
         fragmentTransaction.commit();
     }
 
+    public void AddWebSiteFragment(View view)
+    {
+        FacebookCredentials credentialsFragment = new FacebookCredentials();
+        ChangeFragment(credentialsFragment);
+    }
+
     public void CreateApplicationButton(View view) {
         if (card != null) {
             try {
@@ -655,6 +734,10 @@ public class NavigationDrawerActivity extends AppCompatActivity
         String pass = passTextBox.getText().toString();
         Log.i(nfcDebugTag, pass);
 
+        EditText urlTextBox = (EditText)findViewById(R.id.urlTextBox);
+        String url = urlTextBox.getText().toString();
+        Log.i(nfcDebugTag,url);
+
 
 
         if (userName != "" && pass != "") {
@@ -667,11 +750,11 @@ public class NavigationDrawerActivity extends AppCompatActivity
 //                    Log.i(nfcDebugTag, "Applicatia 0 selectata");
 //                    DesFireCreateApplication(card, 11);
                     WebsitesCredentials credentials = new WebsitesCredentials();
-                    credentials.setUrl("https://www.facebook.com");
+                    credentials.setUrl(url);
                     credentials.setUserName(userName);
                     credentials.setPassword(pass);
                     WriteCredentials(credentials);
-                    Snackbar.make(view, "Tag Writen", Snackbar.LENGTH_LONG);
+                    Snackbar.make(view, "Tag Writen", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     Log.i(nfcDebugTag, "fisier scris");
 
 //                    String textCard = "https://www.facebook.com" + "@@@" + userName + "@@@" + pass;
@@ -828,9 +911,9 @@ public class NavigationDrawerActivity extends AppCompatActivity
             Log.i(nfcDebugTag, "fisier creat");
 
 //             write data to file nr 1
-//            card.authenticate(DESFireEV1.AuthType.Native, 2, (byte) 0, 0,
-//                    (byte) 0, null);
-//            Log.i(nfcDebugTag, "Applicatie authentificata");
+            card.authenticate(DESFireEV1.AuthType.Native, 2, (byte) 0, 0,
+                    (byte) 0, null);
+            Log.i(nfcDebugTag, "Applicatie authentificata");
             card.writeData(lastIndexFromFiles, 0, textBytes);
             Log.i(nfcDebugTag, "fisier scris");
 

@@ -1,4 +1,4 @@
-package com.mario22gmail.license.nfc_writer;
+package com.mario22gmail.license.nfc_project;
 
 
 import android.os.Build;
@@ -49,13 +49,38 @@ public class BrowserFragment extends Fragment {
 
 
     }
+
+    @Override
+    public void onPause() {
+        Log.i("nfc_debug","browser on pause");
+        mWebview.clearCache(true);
+
+        mWebview.clearHistory();
+        mWebview.clearFormData();
+
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        Log.i("nfc_debug","browser on stop");
+        mWebview.clearCache(true);
+        mWebview.clearFormData();
+        mWebview.clearHistory();
+        super.onStop();
+
+    }
+
+
     public void OpenFacebook(String userName, String password) {
 
-        String url = "https://www.facebook.com";
+        //String url = "https://www.facebook.com";
+        final String url1 = WebSitesConstants.Dropbox;
+//        final String url1 ="https://accounts.google.com";
 //        js = "javascript:document.getElementsByName('email')[0].value = '" + userName + "';document.getElementsByName('pass')[0].value='" + password +
 //                "';document.getElementsByName('login')[0].click();";
 
-        mWebview.loadUrl(url);
+        mWebview.loadUrl(url1);
         WebSettings settings = mWebview.getSettings();
         settings.setJavaScriptEnabled(true);
 
@@ -66,15 +91,17 @@ public class BrowserFragment extends Fragment {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
 
-                if (Build.VERSION.SDK_INT >= 19) {
-                    view.evaluateJavascript(js, new ValueCallback<String>() {
-                        @Override
-                        public void onReceiveValue(String s) {
+                if(url.startsWith(url1)) {
+                    if (Build.VERSION.SDK_INT >= 19) {
+                        view.evaluateJavascript(js, new ValueCallback<String>() {
+                            @Override
+                            public void onReceiveValue(String s) {
 
-                        }
-                    });
-                } else {
-                    view.loadUrl(js);
+                            }
+                        });
+                    } else {
+                        view.loadUrl(js);
+                    }
                 }
             }
         });
