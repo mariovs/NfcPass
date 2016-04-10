@@ -9,15 +9,19 @@ package com.mario22gmail.license.nfc_project;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.net.Credentials;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -33,7 +37,8 @@ public class CredentialsAdapter extends RecyclerView.Adapter<CredentialsAdapter.
      * Provide a reference to the type of views that you are using (custom ViewHolder)
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textView;
+        private final TextView urlTextMainView;
+        private final TextView userNameTextVie;
         private final ImageView imageViewWebItem;
 
 
@@ -49,12 +54,17 @@ public class CredentialsAdapter extends RecyclerView.Adapter<CredentialsAdapter.
 //                }
 //            });
             imageViewWebItem = (ImageView) v.findViewById(R.id.imageViewWebItem);
-            textView = (TextView) v.findViewById(R.id.textViewUrl);
+            urlTextMainView = (TextView) v.findViewById(R.id.textViewUrl);
+            userNameTextVie = (TextView) v.findViewById(R.id.secondTextCredentialItem);
 
         }
 
-        public TextView getTextView() {
-            return textView;
+        public TextView getUrlMainTextView() {
+            return urlTextMainView;
+        }
+        public TextView getUserNameTextView()
+        {
+            return userNameTextVie;
         }
         public ImageView getImageViewWebItem()
         {
@@ -88,8 +98,8 @@ public class CredentialsAdapter extends RecyclerView.Adapter<CredentialsAdapter.
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         Log.d(TAG, "Element " + position + " set.");
 
-        RelativeLayout relativeLayoutItem = (RelativeLayout) viewHolder.itemView.findViewById(R.id.RelativeLayoutWebItem);
-        relativeLayoutItem.setOnClickListener(new View.OnClickListener() {
+        ImageView navigateIcon = (ImageView) viewHolder.itemView.findViewById(R.id.navigateWebFromItem);
+        navigateIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WebsitesCredentials credential =mDataSet.get(position);
@@ -99,20 +109,48 @@ public class CredentialsAdapter extends RecyclerView.Adapter<CredentialsAdapter.
 
             }
         });
-        // Get element from your dataset at this position and replace the contents of the view
-        // with that element
+        viewHolder.getUserNameTextView().setText(mDataSet.get(position).getUserName());
+        setImageForCredential(viewHolder, mDataSet.get(position));
+    }
 
+    public void setImageForCredential(ViewHolder viewHolder, WebsitesCredentials credential)
+    {
+        String url = credential.getUrl();
+        switch (url){
+            case  WebSitesConstants.Facebook:
+                    viewHolder.getUrlMainTextView().setText("Facebook");
+                    viewHolder.getImageViewWebItem().setImageResource(R.drawable.facebook);
+                break;
+            case WebSitesConstants.Dropbox:
+                viewHolder.getUrlMainTextView().setText("Dropbox");
+                viewHolder.getImageViewWebItem().setImageResource(R.drawable.dropbox);
+                break;
+            case WebSitesConstants.Twitter:
+                viewHolder.getUrlMainTextView().setText("Twitter");
+                viewHolder.getImageViewWebItem().setImageResource(R.drawable.twitter);
+                break;
+            case WebSitesConstants.MySpace :
+                viewHolder.getUrlMainTextView().setText("Myspace");
+                viewHolder.getImageViewWebItem().setImageResource(R.drawable.myspace);
+                break;
+            case WebSitesConstants.LinkedIn:
+                viewHolder.getUrlMainTextView().setText("LinkedIn");
+                viewHolder.getImageViewWebItem().setImageResource(R.drawable.linkedin);
+                break;
+            case WebSitesConstants.Gmail:
+                viewHolder.getUrlMainTextView().setText("Gmail");
+                viewHolder.getImageViewWebItem().setImageResource(R.drawable.gmail);
+                break;
+            case WebSitesConstants.Instagram:
+                viewHolder.getUrlMainTextView().setText("Instagram");
+                viewHolder.getImageViewWebItem().setImageResource(R.drawable.instagram);
+                break;
+            default:
+                viewHolder.getUrlMainTextView().setText(url);
+                viewHolder.getImageViewWebItem().setImageResource(R.drawable.browser_default);
+                break;
+        }
 
-        String userName = mDataSet.get(position).getUserName();
-        if(userName.equals("maio"))
-        {
-            viewHolder.getImageViewWebItem().setImageResource(R.drawable.instagram);
-        }
-        else
-        {
-            viewHolder.getImageViewWebItem().setImageResource(R.drawable.facebook);
-        }
-        viewHolder.getTextView().setText("Facebook");
     }
 
     // Return the size of your dataset (invoked by the layout manager)

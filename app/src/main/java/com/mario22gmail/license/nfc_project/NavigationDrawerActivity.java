@@ -13,7 +13,6 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -155,15 +154,18 @@ public class NavigationDrawerActivity extends AppCompatActivity
             // Call your fragment...
             WebsitesCredentials credential = (WebsitesCredentials)intent.getSerializableExtra("myCredentials");
             Log.i(nfcDebugTag,"A ajuns aici");
-            js = "javascript:if(document.getElementsByName('email')!= null){document.getElementsByName('email')[0].value = '" + credential.getUserName() + "';}if(document.getElementsByName('pass')!= null){document.getElementsByName('pass')[0].value='" + credential.getPassword() +
-                    "';}if(document.getElementsByName('login')!= null){document.getElementsByName('login')[0].click();}";
-
-            String logInJs = "javascript:setTimeout(function(){ if(document.getElementsByName('login_email')!= null){document.getElementsByName('login_email')[1].value = '" + credential.getUserName() + "';}},3000);" +
-                    "setTimeout(function(){if(document.getElementsByName('login_password')!= null){document.getElementsByName('login_password')[1].value='" + credential.getPassword() + "';}},3000);" +
-                    "setTimeout(function(){if(document.getElementsByClassName('login-button button-primary')!= null){document.getElementsByClassName('login-button button-primary')[0].click();}},5000);";
-            BrowserFragment fragment = new BrowserFragment();
-            fragment.InitString(logInJs);
-            ChangeFragment(fragment);
+            String javaScriptforLogIn = GenerateJavascript(credential);
+            if(!javaScriptforLogIn.equals("")) {
+                BrowserFragment fragment = new BrowserFragment();
+                fragment.InitString(javaScriptforLogIn);
+                fragment.InitUrl(credential.getUrl());
+                ChangeFragment(fragment);
+            }
+            else
+            {
+                Log.i(nfcDebugTag, "Javascript gol");
+                Snackbar.make(findViewById(R.id.navigateWebFromItem), "Credentiale incorecte", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
         }
     };
 
@@ -190,6 +192,9 @@ public class NavigationDrawerActivity extends AppCompatActivity
                         "setTimeout(function(){if(document.getElementsByClassName('btn-primary')[0] != null){document.getElementsByClassName('btn-primary')[0].click();}},5000);";
                 break;
             case WebSitesConstants.MySpace:
+                logInJs = "javascript:setTimeout(function(){ if(document.getElementsByName('email')!= null){document.getElementsByName('email')[1].value = '" + credential.getUserName() + "';}},3000);" +
+                        "setTimeout(function(){if(document.getElementsByName('password')!= null){document.getElementsByName('password')[1].value='" + credential.getPassword() + "';}},3000);" +
+                        "setTimeout(function(){if(document.getElementsByClassName('large primary button')[1]!= null){document.getElementsByClassName('large primary button')[1].click();}},5000);";
                 break;
             case WebSitesConstants.Twitter:
                  logInJs = "javascript: setTimeout(function(){if(document.getElementById('session[username_or_email]')!= null){document.getElementById('session[username_or_email]').value = '" + credential.getUserName() + "';}},2000);" +
@@ -203,8 +208,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
                         "setTimeout(function(){if(document.getElementById('signIn') != null){document.getElementById('signIn').click();}},7000);";
                 break;
             case WebSitesConstants.Dropbox:
-                 logInJs = "javascript:setTimeout(function(){ if(document.getElementsByName('login_email')!= null){document.getElementsByName('login_email')[1].value = '" + credential.getUserName() + "';}},3000);" +
-                        "setTimeout(function(){if(document.getElementsByName('login_password')!= null){document.getElementsByName('login_password')[1].value='" + credential.getPassword() + "';}},3000);" +
+                 logInJs = "javascript:setTimeout(function(){ if(document.getElementsByName('login_email')!= null){document.getElementsByName('login_email')[1].value = '' ; document.getElementsByName('login_email')[1].value = '" + credential.getUserName() + "';}},3000);" +
+                        "setTimeout(function(){if(document.getElementsByName('login_password')!= null){document.getElementsByName('login_password')[1].value=''; document.getElementsByName('login_password')[1].value='" + credential.getPassword() + "';}},3000);" +
                         "setTimeout(function(){if(document.getElementsByClassName('login-button button-primary')!= null){document.getElementsByClassName('login-button button-primary')[0].click();}},5000);";
                 break;
 
@@ -306,29 +311,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
     }
 
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        Log.i(nfcDebugTag, "Tag detected ");
-        isCardEmpty=false;
-        try {
-            libInstance.filterIntent(intent, mCallback);
-            if(isCardEmpty)
-            {
-                FacebookCredentials Fragment = new FacebookCredentials();
-                ChangeFragment(Fragment);
-            }
-            else
-            {
-                cardKeyView = new CardKeyView();
-                ChangeFragment(cardKeyView);
-            }
 
-        } catch (CloneDetectedException e) {
-            Toast.makeText(this, "Error_with_warning", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Log.i(nfcDebugTag, "Exceptia este" + e.getMessage());
-        }
-    }
 
 
     ///Meniu navigare
@@ -346,7 +329,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
             ChangeFragment(cardKeyView);
 
         } else if (id == R.id.nav_slideshow) {
-            FacebookCredentials fbFragment = new FacebookCredentials();
+            AddWebCredentials fbFragment = new AddWebCredentials();
             ChangeFragment(fbFragment);
 
         } else if (id == R.id.nav_manage) {
@@ -358,7 +341,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
             ChangeFragment(optiuni);
 
         } else if (id == R.id.nav_send) {
-
+            FragmentOptionsAddSites fragmentOptiuni = new FragmentOptionsAddSites();
+            ChangeFragment(fragmentOptiuni);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -366,6 +350,30 @@ public class NavigationDrawerActivity extends AppCompatActivity
         return true;
     }
 
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        Log.i(nfcDebugTag, "Tag detected ");
+        isCardEmpty=true;
+        try {
+            libInstance.filterIntent(intent, mCallback);
+            if(isCardEmpty)
+            {
+                AddWebCredentials Fragment = new AddWebCredentials();
+                ChangeFragment(Fragment);
+            }
+            else
+            {
+                cardKeyView = new CardKeyView();
+                ChangeFragment(cardKeyView);
+            }
+
+        } catch (CloneDetectedException e) {
+            Toast.makeText(this, "Error_with_warning", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Log.i(nfcDebugTag, "Exceptia este" + e.getMessage());
+        }
+    }
 
     //Nfc Logic
     private Nxpnfclibcallback mCallback = new Nxpnfclibcallback() {
@@ -391,6 +399,12 @@ public class NavigationDrawerActivity extends AppCompatActivity
 //                Log.i(nfcDebugTag, "Applicatie authentificata");
                 card.selectApplication(11);
                 Log.i(nfcDebugTag, "Applicatia 11 selectata");
+//                card.selectApplication(0);
+//                Log.i(nfcDebugTag, "Applicatia 0 selectata");
+//                card.authenticate(DESFireEV1.AuthType.Native, 2, (byte) 0, 0, (byte) 0, null);
+//                Log.i(nfcDebugTag, "Applicatie authentificata");
+//                card.format();
+//                Log.i(nfcDebugTag,"Card Formatat");
                 isCardEmpty =false;
 
             }
@@ -407,7 +421,6 @@ public class NavigationDrawerActivity extends AppCompatActivity
                 Log.i(nfcDebugTag, "smart card ex " + e.getMessage());
 
             }
-
 //            handler.post(new Runnable() {
 //                @Override
 //                public void run() {
@@ -670,7 +683,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
     public void AddWebSiteFragment(View view)
     {
-        FacebookCredentials credentialsFragment = new FacebookCredentials();
+        AddWebCredentials credentialsFragment = new AddWebCredentials();
         ChangeFragment(credentialsFragment);
     }
 
@@ -719,7 +732,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
 
     public void GoToFacebookCredentialsFragmentButton(View view) {
-        FacebookCredentials fbCredentialsFragment = new FacebookCredentials();
+        AddWebCredentials fbCredentialsFragment = new AddWebCredentials();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.FragmentContainer, fbCredentialsFragment);
         fragmentTransaction.commit();
@@ -740,7 +753,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
 
 
-        if (userName != "" && pass != "") {
+        if (!userName.equals("") && !pass.equals("") && !url.equals("")) {
             if (card != null) {
                 try {
 //                    card.authenticate(DESFireEV1.AuthType.Native, 2, (byte) 0, 0,
@@ -791,7 +804,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
             }
 
         } else {
-            Snackbar.make(view, "User name or pass empty", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "Campurile nu pot fi goale", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
 
@@ -921,6 +934,63 @@ public class NavigationDrawerActivity extends AppCompatActivity
         }
     }
 
+
+    //region addWebsite Credentials
+    public void AddDefaultCredentials(String defaultUrl)
+    {
+        AddWebCredentials fragment = new AddWebCredentials();
+        fragment.SetDefaultUrl(defaultUrl);
+        ChangeFragment(fragment);
+    }
+
+
+    public void FacebookCredentialsAddClick(View view)
+    {
+        AddDefaultCredentials(WebSitesConstants.Facebook);
+    }
+
+    public void InstagramCredentialsAddClick(View view)
+    {
+        AddDefaultCredentials(WebSitesConstants.Instagram);
+    }
+
+    public void LinkedInCredentialsAddClick(View view)
+    {
+        AddDefaultCredentials(WebSitesConstants.LinkedIn);
+    }
+
+    public void GmailCredentialsAddClick(View view)
+    {
+        AddDefaultCredentials(WebSitesConstants.Gmail);
+    }
+
+    public void DropboxCredentialsAddClick(View view)
+    {
+        AddDefaultCredentials(WebSitesConstants.Dropbox);
+    }
+
+    public void MyspaceCredentialsAddClick(View view)
+    {
+        AddDefaultCredentials(WebSitesConstants.MySpace);
+    }
+
+    public void TwitterCredentialsAddClick(View view)
+    {
+        AddDefaultCredentials(WebSitesConstants.Twitter);
+    }
+
+    public void AddDefaultWebsiteCredentialsClick(View view)
+    {
+        AddDefaultCredentials("");
+    }
+
+
+
+
+
+
+
+    //endregion
 
     private void enableForegroundDispatchSystem() {
 

@@ -52,29 +52,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingTop="28dp"
+            android:textSize="16sp"
+            android:paddingTop="20dp"
             android:fontFamily="roboto"
-            android:paddingBottom="16dp"
             android:text="ceva"
             android:textAppearance="?android:attr/textAppearance" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="70dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:id="@+id/webLayoutRight">
-
         <TextView
-            android:id="@+id/textViewWebLogin"
+            android:id="@+id/secondTextCredentialItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="roboto"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp"
             android:layout_gravity="right|center_vertical"
-            android:text="Log in"
+            android:layout_below="@+id/textViewUrl"
+            android:text="altceva"
             android:textAppearance="?android:attr/textAppearanceLarge" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="72dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:id="@+id/webLayoutRight">
+        <ImageView
+                android:id="@+id/navigateWebFromItem"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/navigate_web_icon" />
+
     </RelativeLayout>
 
 

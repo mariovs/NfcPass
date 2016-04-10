@@ -5,7 +5,7 @@ package com.mario22gmail.license.nfc_project;
  */
 public class WebSitesConstants {
 
-    public static final String Facebook = "www.facebook.com";
+    public static final String Facebook = "https://mobile.facebook.com";
     public static final String Twitter = "https://mobile.twitter.com/session/new";
     public static final String MySpace = "https://myspace.com/signin";
     public static final String LinkedIn = "https://www.linkedin.com/uas/login";

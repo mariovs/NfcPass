@@ -20,6 +20,7 @@ import android.webkit.WebViewClient;
 public class BrowserFragment extends Fragment {
 
     private String js ="";
+    private String url = "";
     private WebView mWebview;
 
     public void InitString(String text)
@@ -27,6 +28,10 @@ public class BrowserFragment extends Fragment {
         js = text;
     }
 
+    public void InitUrl(String text)
+    {
+        url = text;
+    }
 
 
     public BrowserFragment() {
@@ -41,8 +46,13 @@ public class BrowserFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_browser, container, false);
         mWebview = (WebView) v.findViewById(R.id.webViewFb);
-        OpenFacebook("a","v");
-        Log.i("nfc_debug","A trecut");
+
+        if(!js.equals("") && !url.equals(""))
+        {
+            OpenWebSite(url,js);
+            Log.i("nfc_debug", "A trecut");
+        }
+
         return v;
 //        inflater.inflate(R.layout.fragment_browser, container, false);
 
@@ -54,7 +64,6 @@ public class BrowserFragment extends Fragment {
     public void onPause() {
         Log.i("nfc_debug","browser on pause");
         mWebview.clearCache(true);
-
         mWebview.clearHistory();
         mWebview.clearFormData();
 
@@ -72,18 +81,14 @@ public class BrowserFragment extends Fragment {
     }
 
 
-    public void OpenFacebook(String userName, String password) {
+    public void OpenWebSite(String urlFromCredential,String javaScript) {
 
-        //String url = "https://www.facebook.com";
-        final String url1 = WebSitesConstants.Dropbox;
-//        final String url1 ="https://accounts.google.com";
-//        js = "javascript:document.getElementsByName('email')[0].value = '" + userName + "';document.getElementsByName('pass')[0].value='" + password +
-//                "';document.getElementsByName('login')[0].click();";
-
-        mWebview.loadUrl(url1);
+        mWebview.loadUrl(urlFromCredential);
         WebSettings settings = mWebview.getSettings();
         settings.setJavaScriptEnabled(true);
 
+        final String javaScriptFinal = javaScript;
+        final String urlFromCredentialFinal = urlFromCredential;
 
         mWebview.setWebViewClient(new WebViewClient() {
 
@@ -91,16 +96,16 @@ public class BrowserFragment extends Fragment {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
 
-                if(url.startsWith(url1)) {
+                if(url.startsWith(urlFromCredentialFinal)) {
                     if (Build.VERSION.SDK_INT >= 19) {
-                        view.evaluateJavascript(js, new ValueCallback<String>() {
+                        view.evaluateJavascript(javaScriptFinal, new ValueCallback<String>() {
                             @Override
                             public void onReceiveValue(String s) {
 
                             }
                         });
                     } else {
-                        view.loadUrl(js);
+                        view.loadUrl(javaScriptFinal);
                     }
                 }
             }
