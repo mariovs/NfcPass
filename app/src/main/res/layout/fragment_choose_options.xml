@@ -7,22 +7,13 @@
     tools:context="com.mario22gmail.license.nfc_project.ChooseOptions">
 
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="60dp"
-                android:scrollbars="vertical" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabChooseSites"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="AddWebSiteFragment"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_info" />
 
     <!--<RadioButton-->
     <!--android:layout_width="wrap_content"-->
@@ -37,8 +28,6 @@
     <!--android:text="New RadioButton"-->
     <!--android:id="@+id/grid_layout_rb"-->
     <!--android:layout_gravity="right|top" />-->
-
-
 
 
 </FrameLayout>

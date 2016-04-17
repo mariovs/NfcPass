@@ -10,9 +10,11 @@ import android.nfc.TagLostException;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -28,9 +30,11 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionMenu;
 import com.nxp.nfclib.NxpNfcLib;
 import com.nxp.nfclib.Nxpnfclibcallback;
 import com.nxp.nfclib.classic.IMFClassicEV1;
@@ -95,8 +99,11 @@ public class NavigationDrawerActivity extends AppCompatActivity
         context.registerReceiver(logInWebsite, new IntentFilter("start.fragment.action"));
         context.registerReceiver(customActionBarTitle, new IntentFilter("fragment.setTitle"));
         //set the main fragment
-        MainFragment mainFragment = new MainFragment();
-        ChangeFragment(mainFragment);
+//        MainFragment mainFragment = new MainFragment();
+//        ChangeFragment(mainFragment);
+
+//        EmptyFragment emptyFragment = new EmptyFragment();
+//        ChangeFragment(emptyFragment);
 
 
 
@@ -113,7 +120,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
             ks.formatKeyEntry(3, IKeyConstants.KeyType.KEYSTORE_KEY_TYPE_DES);
             ks.setKey(3, (byte) 0, IKeyConstants.KeyType.KEYSTORE_KEY_TYPE_DES, MY_KEY_2KTDES);
 
-            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            toolbar = (Toolbar) findViewById(R.id.toolbarNavigationDrawer);
             setSupportActionBar(toolbar);
         } catch (SmartCardException e) {
             e.printStackTrace();
@@ -130,21 +137,52 @@ public class NavigationDrawerActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setVisibility(View.INVISIBLE);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionMenu fabMenu = (FloatingActionMenu) findViewById(R.id.menuFab);
+
+//        fabMenu.hideMenuButton(false);
+
+        fabMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onMenuToggle(boolean opened) {
+                String text;
+                if (opened) {
+
+                    text = "Menu opened";
+                } else {
+                    text = "Menu closed";
+                }
+                Log.i(nfcDebugTag,text);
+
             }
         });
+
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                fab.setLabelColors(ContextCompat.getColor(activity, Color.GRAY),
+//                        fab.getColor()
+//                        fab.getColor(activity, R.color.cardview_dark_background));
+//                fab.setLabelTextColor(ContextCompat.getColor(activity, Color.BLACK));
+//            }
+//
+//        });
+
+//        fabMenu.hideMenuButton(false);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
+
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 //        getSupportActionBar().setHomeButtonEnabled(false);
     }
+
 
 
     BroadcastReceiver logInWebsite = new BroadcastReceiver() {
@@ -168,7 +206,6 @@ public class NavigationDrawerActivity extends AppCompatActivity
             }
         }
     };
-
     public String GenerateJavascript(WebsitesCredentials credential)
     {
         String logInJs = "";
@@ -322,8 +359,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            MainFragment mainFragment = new MainFragment();
-           ChangeFragment(mainFragment);
+            EmptyFragment emptyFragment = new EmptyFragment();
+            ChangeFragment(emptyFragment);
         } else if (id == R.id.nav_gallery) {
             cardKeyView = new CardKeyView();
             ChangeFragment(cardKeyView);
@@ -333,12 +370,23 @@ public class NavigationDrawerActivity extends AppCompatActivity
             ChangeFragment(fbFragment);
 
         } else if (id == R.id.nav_manage) {
-            ChooseOptions chooseOptions = new ChooseOptions();
-            ChangeFragment(chooseOptions);
+//            ChooseOptions chooseOptions = new ChooseOptions();
+//            ChangeFragment(chooseOptions);
+            FireMissilesDialogFragment fragment = new FireMissilesDialogFragment();
+            fragment.show(getSupportFragmentManager(),"Mario popup");
+//            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.setCustomAnimations(R.anim.popupanim, R.anim.popoutanim, R.anim.popupanim, R.anim.popoutanim);
+//            fragmentTransaction.replace(R.id.FragmentContainer, fragment);
+//            fragmentTransaction.addToBackStack(null);
+//
+//            fragmentTransaction.commit();
+//            ChangeFragment(fragment);
 
         } else if (id == R.id.nav_share) {
-            FragmentOptiuni optiuni = new FragmentOptiuni();
-            ChangeFragment(optiuni);
+//            FragmentOptiuni optiuni = new FragmentOptiuni();
+//            ChangeFragment(optiuni);
+            FragmentCardContent cardContent = new FragmentCardContent();
+            ChangeFragment(cardContent);
 
         } else if (id == R.id.nav_send) {
             FragmentOptionsAddSites fragmentOptiuni = new FragmentOptionsAddSites();
@@ -359,13 +407,19 @@ public class NavigationDrawerActivity extends AppCompatActivity
             libInstance.filterIntent(intent, mCallback);
             if(isCardEmpty)
             {
-                AddWebCredentials Fragment = new AddWebCredentials();
+                EmptyFragment Fragment = new EmptyFragment();
                 ChangeFragment(Fragment);
-            }
-            else
+//            ChangeFragment(chooseOptions);
+//                FireMissilesDialogFragment fragment = new FireMissilesDialogFragment();
+//                fragment.show(getSupportFragmentManager(), "Mario popup");
+
+            } else
             {
                 cardKeyView = new CardKeyView();
                 ChangeFragment(cardKeyView);
+//                FireMissilesDialogFragment fragment = new FireMissilesDialogFragment();
+//                fragment.show(getSupportFragmentManager(), "Mario popup");
+
             }
 
         } catch (CloneDetectedException e) {
@@ -395,8 +449,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
 //            try {
             card = objDESFire;
             try{
-//                card.authenticate(DESFireEV1.AuthType.Native, 2, (byte) 0, 0, (byte) 0, null);
-//                Log.i(nfcDebugTag, "Applicatie authentificata");
+
                 card.selectApplication(11);
                 Log.i(nfcDebugTag, "Applicatia 11 selectata");
 //                card.selectApplication(0);
@@ -411,14 +464,17 @@ public class NavigationDrawerActivity extends AppCompatActivity
             catch (DESFireException exceptie)
             {
                 Log.i(nfcDebugTag,"DesFire " + exceptie.getMessage());
+                isCardEmpty = true;
 
             } catch (IOException e) {
                 e.printStackTrace();
                 Log.i(nfcDebugTag, "IO " + e.getMessage());
+                isCardEmpty = true;
 
             } catch (SmartCardException e) {
                 e.printStackTrace();
                 Log.i(nfcDebugTag, "smart card ex " + e.getMessage());
+                isCardEmpty = true;
 
             }
 //            handler.post(new Runnable() {
@@ -589,14 +645,25 @@ public class NavigationDrawerActivity extends AppCompatActivity
                 card.getReader().setTimeout(5000);
 
 
-                FragmentOptiuni optiuni = new FragmentOptiuni();
-                android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.slide_left_animation, R.anim.slide_right_animation,R.anim.slide_left_back_animation,R.anim.slide_right_back_animation);
-                fragmentTransaction.replace(R.id.FragmentContainer, optiuni);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+
+                ArrayList<WebsitesCredentials> credentials = null;
+                try {
+                    credentials = GetWebsitesFromDesfire();
+                } catch (IOException e) {
+                    Log.i(nfcDebugTag,"io exception" + e.getMessage());
+                    e.printStackTrace();
+                } catch (SmartCardException e) {
+                    Log.i(nfcDebugTag,"smart card exception" + e.getMessage());
+                    e.printStackTrace();
+                } catch (GeneralSecurityException e) {
+                    Log.i(nfcDebugTag,"general security exception" + e.getMessage());
+                    e.printStackTrace();
+                }
 
 
+                FragmentCardContent fragmentCardContent = new FragmentCardContent();
+                fragmentCardContent.InitializeCredentials(credentials);
+                ChangeFragment(fragmentCardContent);
 
 
                 // DesFireCreateApplication(card, 4);
@@ -687,6 +754,17 @@ public class NavigationDrawerActivity extends AppCompatActivity
         ChangeFragment(credentialsFragment);
     }
 
+    public void  NavigateCredentialsFragmentClick(View view)
+    {
+        FloatingActionMenu menu = (FloatingActionMenu) findViewById(R.id.menuFab);
+//        menu.toggle(true);
+        menu.close(true);
+
+        FragmentOptionsAddSites optionsFragment = new FragmentOptionsAddSites();
+        ChangeFragment(optionsFragment);
+
+    }
+
     public void CreateApplicationButton(View view) {
         if (card != null) {
             try {
@@ -749,7 +827,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
         EditText urlTextBox = (EditText)findViewById(R.id.urlTextBox);
         String url = urlTextBox.getText().toString();
-        Log.i(nfcDebugTag,url);
+        Log.i(nfcDebugTag, url);
 
 
 
@@ -810,31 +888,44 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
     }
 
-    public void NavToFbButton(View view) {
-        if (card != null) {
-            try {
-                String textFromTag = DesFireReadFromCard(card);
-                String[] itemstFromCard = textFromTag.split("@@@");
-                if (itemstFromCard.length == 2) {
-                    BrowserFragment fragment = new BrowserFragment();
-                    js = "javascript:document.getElementsByName('email')[0].value = '" + itemstFromCard[0] + "';document.getElementsByName('pass')[0].value='" + itemstFromCard[1] +
-                            "';document.getElementsByName('login')[0].click();";
-                    fragment.InitString(js);
-                    android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.FragmentContainer, fragment);
-                    fragmentTransaction.commit();
-                    //OpenFacebook(itemstFromCard[0], itemstFromCard[1]);
-                }
+    public void FacebookCredentialsAddClick(View view)
+    {
+        AddDefaultCredentials(WebSitesConstants.Facebook);
+    }
 
-            } catch (GeneralSecurityException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (SmartCardException e) {
-                e.printStackTrace();
-            }
+    public void InstagramCredentialsAddClick(View view)
+    {
+        AddDefaultCredentials(WebSitesConstants.Instagram);
+    }
 
-        }
+    public void LinkedInCredentialsAddClick(View view)
+    {
+        AddDefaultCredentials(WebSitesConstants.LinkedIn);
+    }
+
+    public void GmailCredentialsAddClick(View view)
+    {
+        AddDefaultCredentials(WebSitesConstants.Gmail);
+    }
+
+    public void DropboxCredentialsAddClick(View view)
+    {
+        AddDefaultCredentials(WebSitesConstants.Dropbox);
+    }
+
+    public void MyspaceCredentialsAddClick(View view)
+    {
+        AddDefaultCredentials(WebSitesConstants.MySpace);
+    }
+
+    public void TwitterCredentialsAddClick(View view)
+    {
+        AddDefaultCredentials(WebSitesConstants.Twitter);
+    }
+
+    public void AddDefaultWebsiteCredentialsClick(View view)
+    {
+        AddDefaultCredentials("");
     }
 
 //endregion ClickHandlers
@@ -911,6 +1002,9 @@ public class NavigationDrawerActivity extends AppCompatActivity
 //                isCardEmpty = true;
 //            }
 //            card.selectApplication(11);
+
+
+
             filesIdBytes = card.getFileIDs();
             int lastIndexFromFiles = filesIdBytes.length;
             Log.i(nfcDebugTag, "Index fisier" + lastIndexFromFiles);
@@ -944,45 +1038,6 @@ public class NavigationDrawerActivity extends AppCompatActivity
     }
 
 
-    public void FacebookCredentialsAddClick(View view)
-    {
-        AddDefaultCredentials(WebSitesConstants.Facebook);
-    }
-
-    public void InstagramCredentialsAddClick(View view)
-    {
-        AddDefaultCredentials(WebSitesConstants.Instagram);
-    }
-
-    public void LinkedInCredentialsAddClick(View view)
-    {
-        AddDefaultCredentials(WebSitesConstants.LinkedIn);
-    }
-
-    public void GmailCredentialsAddClick(View view)
-    {
-        AddDefaultCredentials(WebSitesConstants.Gmail);
-    }
-
-    public void DropboxCredentialsAddClick(View view)
-    {
-        AddDefaultCredentials(WebSitesConstants.Dropbox);
-    }
-
-    public void MyspaceCredentialsAddClick(View view)
-    {
-        AddDefaultCredentials(WebSitesConstants.MySpace);
-    }
-
-    public void TwitterCredentialsAddClick(View view)
-    {
-        AddDefaultCredentials(WebSitesConstants.Twitter);
-    }
-
-    public void AddDefaultWebsiteCredentialsClick(View view)
-    {
-        AddDefaultCredentials("");
-    }
 
 
 

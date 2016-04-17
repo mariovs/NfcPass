@@ -62,10 +62,12 @@ public class BrowserFragment extends Fragment {
 
     @Override
     public void onPause() {
-        Log.i("nfc_debug","browser on pause");
+        Log.i("nfc_debug", "browser on pause");
         mWebview.clearCache(true);
         mWebview.clearHistory();
         mWebview.clearFormData();
+        mWebview.loadUrl("www.google.com");
+
 
         super.onPause();
     }
@@ -74,12 +76,24 @@ public class BrowserFragment extends Fragment {
     public void onStop() {
         Log.i("nfc_debug","browser on stop");
         mWebview.clearCache(true);
+
         mWebview.clearFormData();
         mWebview.clearHistory();
+        mWebview.loadUrl("www.google.com");
+
         super.onStop();
 
     }
 
+    @Override
+    public void onDestroy() {
+        Log.i("nfc_debug","browser on stop");
+        mWebview.loadUrl("www.google.com");
+        mWebview.clearCache(true);
+        mWebview.clearFormData();
+        mWebview.clearHistory();
+        super.onDestroy();
+    }
 
     public void OpenWebSite(String urlFromCredential,String javaScript) {
 

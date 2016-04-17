@@ -6,6 +6,7 @@
 
 
     <string name="passMessage">Password</string>
+    <string name="pinHint">Pin number</string>
     <string name="buttonName">Write Nfc</string>
     <string name="title_activity_display_message">My Message</string>
     <string name="title_activity_navigation">NavigationActivity</string>

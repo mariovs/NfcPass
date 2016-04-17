@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.NumberPicker;
 
 
 /**
@@ -15,7 +16,7 @@ import android.view.ViewGroup;
  */
 public class CardKeyView extends Fragment {
 
-    FloatingActionButton fab;
+    com.github.clans.fab.FloatingActionButton fab;
     public CardKeyView() {
         // Required empty public constructor
     }
@@ -38,8 +39,10 @@ public class CardKeyView extends Fragment {
         Intent myIntent = new Intent("fragment.setTitle");
         myIntent.putExtra("Title","Second Fragment");
         NavigationDrawerActivity.getAppContext().sendBroadcast(myIntent);
-        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
-        fab.show();
+
+
+//        fab = (com.github.clans.fab.FloatingActionButton) getActivity().findViewById(R.id.fab);
+//        fab.show(true);
         return inflater.inflate(R.layout.fragment_second, container, false);
     }
     
@@ -47,14 +50,14 @@ public class CardKeyView extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        fab.show();
+//        fab.show(true);
     }
 
     @Override
     public void onResume()
     {
         super.onResume();
-        fab.show();
+//        fab.show(true);
     }
 
     
@@ -62,13 +65,13 @@ public class CardKeyView extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        fab.hide();
+//        fab.hide(true);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        fab.hide();
+//        fab.hide(true);
     }
 
 }
