@@ -14,39 +14,80 @@
  limitations under the License.
 -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:layout_marginBottom="8dp"
-    android:layout_marginLeft="16dp"
+    android:layout_height="72dp"
     android:layout_marginRight="16dp"
-    android:layout_marginTop="8dp"
-    android:background="@color/colorPrimary"
     android:gravity="center_vertical">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="72dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/webLayoutLeft">
 
-        <TextView
-            android:id="@+id/textView"
+        <ImageView
+            android:id="@+id/imageViewWebItem"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+
+            android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginTop="24dp"
-            android:textColor="#fff"
-            android:textSize="14dp" />
+            android:layout_marginTop="16dp" />
+    </RelativeLayout>
 
-        <Button
-            android:id="@+id/buttonNavigareWebsite"
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/RelativeLayoutWebItem"
+        android:layout_toLeftOf = "@+id/webLayoutRight"
+        android:layout_toRightOf = "@id/webLayoutLeft">
+
+        <TextView
+            android:id="@+id/textViewUrl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="16sp"
+            android:paddingTop="20dp"
+            android:fontFamily="roboto"
+            android:text="ceva"
+            android:textAppearance="?android:attr/textAppearance" />
+        <TextView
+            android:id="@+id/secondTextCredentialItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="roboto"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_below="@+id/textViewUrl"
+            android:text="altceva"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="72dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:id="@+id/webLayoutRight">
+        <ImageView
+                android:id="@+id/navigateWebFromItem"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginLeft="250dp"
-            android:background="@color/colorAccent"
-            android:text="Log in" />
+            android:background="@drawable/navigate_web_icon" />
 
     </RelativeLayout>
 
-</FrameLayout>
+
+</RelativeLayout>

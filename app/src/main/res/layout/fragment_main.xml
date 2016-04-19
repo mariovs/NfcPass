@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="com.mario22gmail.license.nfc_writer.MainFragment">
+    tools:context="com.mario22gmail.license.nfc_project.MainFragment">
 
 
     <FrameLayout
@@ -15,36 +15,36 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start using nfc"
+            android:text="Nfc Manager"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:textColor="@android:color/white"
             android:layout_gravity="top|center"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
-            android:layout_marginTop="32dp"
-            android:textSize="28sp"/>
+            android:layout_marginTop="150dp"
+            android:textSize="40sp"/>
 
         <ImageView
             android:id="@+id/computer"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/ic_phonelink_ring_black_48dp" />
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Descriere"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:layout_gravity="bottom|center"
-            android:maxEms="18"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
-            android:layout_marginBottom="32dp"
-            android:textSize="20sp"/>
+        <!--<TextView-->
+            <!--android:id="@+id/description"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Descriere"-->
+            <!--android:gravity="center"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:layout_gravity="bottom|center"-->
+            <!--android:maxEms="18"-->
+            <!--android:layout_marginLeft="32dp"-->
+            <!--android:layout_marginRight="32dp"-->
+            <!--android:layout_marginBottom="32dp"-->
+            <!--android:textSize="20sp"/>-->
 
     </FrameLayout>
 </FrameLayout>

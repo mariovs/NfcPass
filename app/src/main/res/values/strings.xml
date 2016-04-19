@@ -1,8 +1,12 @@
 <resources>
-    <string name="app_name">Nfc Licenta</string>
+    <string name="app_name">Nfc Project</string>
     <string name="action_settings">Settings</string>
     <string name="editMessage">User  Name</string>
+    <string name="urlCredentials">Url</string>
+
+
     <string name="passMessage">Password</string>
+    <string name="pinHint">Pin number</string>
     <string name="buttonName">Write Nfc</string>
     <string name="title_activity_display_message">My Message</string>
     <string name="title_activity_navigation">NavigationActivity</string>
