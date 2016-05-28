@@ -79,8 +79,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
     private final Handler handler = new Handler();
     private String js = "";
 
-    final static private String APP_KEY = "x9epuus7d50osez";
-    final static private String APP_SECRET = "qc6dctb2f7iuqxz";
+    final static private String APP_KEY = "";
+    final static private String APP_SECRET = "";
     private DropboxAPI<AndroidAuthSession> mDBApi;
 
     public static final byte[] KEY_2KTDES = {(byte) 0x00, (byte) 0x00,
@@ -123,7 +123,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
         mDBApi = new DropboxAPI<AndroidAuthSession>(session);
 
         libInstance = NxpNfcLib.getInstance();
-        libInstance.registerActivity(this, "5935fb1310d5da96b1bbd3a7c7e94951");
+        libInstance.registerActivity(this, "");
 
         try {
             ks = KeyStoreFactory.getInstance().getSoftwareKeyStore();
