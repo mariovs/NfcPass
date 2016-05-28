@@ -1,0 +1,27 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".FragmentEmptyState">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewEmptyState"
+        android:background="@drawable/empty_state_icon_greyed"
+        android:layout_gravity="center" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewEmptyState"
+        android:text="Nu am gasit nimic pe card"
+        android:layout_marginTop="70dp"
+        android:textSize="18sp"
+        android:textColor="@color/colorGreyedText"
+        android:layout_gravity="center_horizontal|top" />
+</FrameLayout>

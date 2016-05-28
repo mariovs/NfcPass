@@ -46,8 +46,8 @@ import com.nxp.nfclib.exceptions.SmartCardException;
 import com.nxp.nfclib.keystore.common.IKeyConstants;
 import com.nxp.nfclib.keystore.common.IKeyStore;
 import com.nxp.nfclib.keystore.common.KeyStoreFactory;
-import com.nxp.nfclib.ndef.NdefMessage;
-import com.nxp.nfclib.ndef.NdefRecord;
+import com.nxp.nfclib.ndef.NdefMessageWrapper;
+import com.nxp.nfclib.ndef.NdefRecordWrapper;
 import com.nxp.nfclib.utils.Utilities;
 //import com.nxp.nfcliblite.NxpNfcLibLite;
 //import com.nxp.nfcliblite.Nxpnfcliblitecallback;
@@ -635,10 +635,10 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private void readTextFromTag(NdefMessage ndefMessage) {
-        NdefRecord[] records = ndefMessage.getRecords();
+    private void readTextFromTag(NdefMessageWrapper ndefMessage) {
+        NdefRecordWrapper[] records = ndefMessage.getRecords();
         if (records != null && records.length > 0) {
-            NdefRecord ndefRecord = records[0];
+            NdefRecordWrapper ndefRecord = records[0];
             String tagContent = getTextFromNdefRecord(ndefRecord);
             //txtTagContent.setText(tagContent);
             String[] itemstFromCard = tagContent.split("&&&");
@@ -654,7 +654,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public String getTextFromNdefRecord(NdefRecord ndefRecord) {
+    public String getTextFromNdefRecord(NdefRecordWrapper ndefRecord) {
         String tagContent = null;
         try {
             byte[] payload = ndefRecord.getPayload();
@@ -779,7 +779,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private NdefRecord createTextRecord(String content) {
+    private NdefRecordWrapper createTextRecord(String content) {
         try {
             byte[] language;
             language = Locale.getDefault().getLanguage().getBytes("UTF-8");
@@ -794,7 +794,7 @@ public class MainActivity extends AppCompatActivity {
             payload.write(language, 0, languageSize);
             payload.write(text, 0, textLength);
 
-            return new NdefRecord(android.nfc.NdefRecord.TNF_WELL_KNOWN, android.nfc.NdefRecord.RTD_TEXT, new byte[0], payload.toByteArray());
+            return new NdefRecordWrapper(android.nfc.NdefRecord.TNF_WELL_KNOWN, android.nfc.NdefRecord.RTD_TEXT, new byte[0], payload.toByteArray());
 
 
         } catch (UnsupportedEncodingException e) {
@@ -805,10 +805,10 @@ public class MainActivity extends AppCompatActivity {
         return null;
     }
 
-    private NdefMessage createNdefMessage(String content) {
-        NdefRecord ndefRecord = createTextRecord(content);
+    private NdefMessageWrapper createNdefMessage(String content) {
+        NdefRecordWrapper ndefRecord = createTextRecord(content);
 
-        NdefMessage ndefMessage = new NdefMessage(new NdefRecord[]{ndefRecord});
+        NdefMessageWrapper ndefMessage = new NdefMessageWrapper(new NdefRecordWrapper[]{ndefRecord});
 
         return ndefMessage;
     }

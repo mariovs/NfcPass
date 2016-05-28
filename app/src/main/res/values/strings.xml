@@ -10,6 +10,7 @@
     <string name="buttonName">Write Nfc</string>
     <string name="title_activity_display_message">My Message</string>
     <string name="title_activity_navigation">NavigationActivity</string>
+    <string name="title_fragment_file">Fisiere</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
