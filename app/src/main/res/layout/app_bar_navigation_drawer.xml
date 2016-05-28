@@ -27,33 +27,33 @@
 
     <FrameLayout
         android:id="@+id/FragmentContainer"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
         android:measureAllChildren="false"></FrameLayout>
 
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/menuFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-
         android:layout_gravity="bottom|right"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="8dp"
         android:layout_marginTop="10dp"
         android:elevation="2dp"
-
+        fab:menu_labels_showShadow="true"
+        fab:menu_backgroundColor="#ccffffff"
         fab:menu_animationDelayPerItem="0"
         fab:menu_colorNormal="#FFB805"
         fab:menu_colorPressed="#F2AB00"
         fab:menu_colorRipple="#D99200"
+        fab:menu_shadowColor="#444"
         fab:menu_labels_hideAnimation="@anim/jump_to_down"
         fab:menu_labels_showAnimation="@anim/jump_from_down"
-        fab:menu_labels_style="@style/MenuLabelsStyle"
-        fab:menu_shadowColor="#444">
+        fab:menu_labels_style="@style/MenuLabelsStyle">
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fabAddCredential"
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="NavigateCredentialsFragmentClick"
-            android:src="@drawable/ic_edit"
+            android:src="@drawable/add_credential_icon"
 
             fab:fab_label="Adauga credentiale" />
 
@@ -70,8 +70,9 @@
             style="@style/MenuButtonsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_edit"
-            fab:fab_label="Adauga fisier" />
+            android:src="@drawable/add_secure_note_icon"
+            android:onClick="NavigateToAddFileFragmentClick"
+            fab:fab_label="Adauga mesaj" />
 
     </com.github.clans.fab.FloatingActionMenu>
 

@@ -1,6 +1,7 @@
 package com.mario22gmail.license.nfc_project;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -25,10 +26,25 @@ public class FragmentCardContent extends Fragment {
     }
 
     private ArrayList<WebsitesCredentials> credentials ;
+    private ArrayList<SecureNote> notes;
 
     public void InitializeCredentials(ArrayList<WebsitesCredentials> credentials )
     {
         this.credentials = credentials;
+    }
+
+    public void InitializeSecureNotes(ArrayList<SecureNote> notes)
+    {
+        SecureNote note1= new SecureNote("subiect1","mesaj1");
+        SecureNote note2= new SecureNote("subiect2","mesaj2");
+        SecureNote note3= new SecureNote("subiect3","mesaj3");
+
+
+        ArrayList<SecureNote> secureNotes = new ArrayList<SecureNote>(4);
+        secureNotes.add(note1);
+        secureNotes.add(note2);
+        secureNotes.add(note3);
+        this.notes = secureNotes;
     }
 
     @Override
@@ -38,19 +54,24 @@ public class FragmentCardContent extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_card_content, container, false);
 
-        Toolbar toolbar = (Toolbar)getActivity().findViewById(R.id.toolbarNavigationDrawer);
-//
+        Intent setTitleIntent = new Intent("fragment.setTitle");
+        setTitleIntent.putExtra("Title","Conținut card");
+        NavigationDrawerActivity.getAppContext().sendBroadcast(setTitleIntent);
 
 
-        TabLayout tabLayout = (TabLayout)rootView.findViewById(R.id.tab_layout);
+
+
+        final TabLayout tabLayout = (TabLayout)rootView.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Site-uri web"));
-        tabLayout.addTab(tabLayout.newTab().setText("Fisiere"));
+        tabLayout.addTab(tabLayout.newTab().setText("Mesaje"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager)rootView.findViewById(R.id.pager);
         final TabsViewPager adapter = new TabsViewPager
                 (getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
         adapter.InitializeCredentials(credentials);
+        InitializeSecureNotes(null);
+        adapter.InitializeSecureNotes(notes);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -72,4 +93,19 @@ public class FragmentCardContent extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onStart() {
+        Intent intentShowFab = new Intent("fragment.showFabButton");
+        intentShowFab.putExtra("showFab",true);
+        NavigationDrawerActivity.getAppContext().sendBroadcast(intentShowFab);
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        Intent intentShowFab = new Intent("fragment.showFabButton");
+        intentShowFab.putExtra("showFab",false);
+        NavigationDrawerActivity.getAppContext().sendBroadcast(intentShowFab);
+        super.onStop();
+    }
 }

@@ -15,11 +15,10 @@
 -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:layout_marginRight="16dp"
     android:gravity="center_vertical">
-
     <RelativeLayout
         android:layout_width="72dp"
         android:layout_height="match_parent"
@@ -71,21 +70,46 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="72dp"
+        android:layout_width="172dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:id="@+id/webLayoutRight">
-        <ImageView
-                android:id="@+id/navigateWebFromItem"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/navigate_web_icon" />
+
+
+        <LinearLayout
+            android:layout_width="172dp"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/webItemEditIcon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerInside"
+                style="?android:borderlessButtonStyle"
+                android:layout_gravity="center"
+                android:src="@drawable/edit_icon_credentials" />
+
+
+            <ImageButton
+                android:id="@+id/webItemDeleteIcon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerInside"
+                android:layout_gravity="center"
+                style="?android:borderlessButtonStyle"
+                android:src="@drawable/delete_icon" />
+
+            <ImageButton
+                android:id="@+id/webItemNavigateIcon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerInside"
+                android:layout_gravity="center"
+                style="?android:borderlessButtonStyle"
+                android:src="@drawable/ic_open_in_browser" />
+
+        </LinearLayout>
+
 
     </RelativeLayout>
 

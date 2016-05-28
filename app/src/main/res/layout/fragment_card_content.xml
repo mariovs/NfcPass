@@ -12,8 +12,12 @@
         android:layout_below="@+id/toolbarNavigationDrawer"
         android:background="@color/colorPrimary"
         android:elevation="6dp"
+        app:tabIndicatorHeight="2dp"
+
         android:minHeight="?attr/actionBarSize"
-        app:tabTextColor="#fff"
+        app:tabTextColor="@color/colorWhite"
+        app:tabSelectedTextColor="@color/colorWhite"
+        app:tabIndicatorColor="@color/colorAccent"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
 
     <android.support.v4.view.ViewPager
@@ -22,5 +26,6 @@
         android:layout_height="fill_parent"
         android:layout_marginTop="?attr/actionBarSize"
         android:layout_below="@id/tab_layout" />
+
 
 </FrameLayout>

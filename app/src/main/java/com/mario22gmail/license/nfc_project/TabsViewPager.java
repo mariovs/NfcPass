@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by Mario Vasile on 4/17/2016.
  */
-public class TabsViewPager extends FragmentStatePagerAdapter{
+public class TabsViewPager extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 
     public TabsViewPager(FragmentManager fm, int NumOfTabs) {
@@ -17,11 +17,15 @@ public class TabsViewPager extends FragmentStatePagerAdapter{
         this.mNumOfTabs = NumOfTabs;
     }
 
-    private ArrayList<WebsitesCredentials> credentials ;
+    private ArrayList<WebsitesCredentials> credentials;
+    private ArrayList<SecureNote> secureNotes;
 
-    public void InitializeCredentials(ArrayList<WebsitesCredentials> credentials )
-    {
+    public void InitializeCredentials(ArrayList<WebsitesCredentials> credentials) {
         this.credentials = credentials;
+    }
+
+    public void InitializeSecureNotes(ArrayList<SecureNote> notes) {
+        this.secureNotes = notes;
     }
 
     @Override
@@ -29,23 +33,28 @@ public class TabsViewPager extends FragmentStatePagerAdapter{
 
         switch (position) {
             case 0:
-                 if(credentials != null && credentials.size()>0)
-                 {
-                     ChooseOptions chooseOptions = new ChooseOptions();
-                     chooseOptions.initDataset(credentials);
-                     return chooseOptions;
-                 }
-                else
-                 {
-                     EmptyFragment fragment = new EmptyFragment();
-                     return fragment;
-                 }
+                if (credentials != null && credentials.size() > 0) {
+                    FragmentWebCredentialsOnCard fragmentWebCredentialsOnCard = new FragmentWebCredentialsOnCard();
+                    fragmentWebCredentialsOnCard.initDataset(credentials);
+                    return fragmentWebCredentialsOnCard;
+                } else {
+                    FragmentEmptyState fragment = new FragmentEmptyState();
+                    return fragment;
+                }
             case 1:
-                    EmptyFragment tab2 = new EmptyFragment();
-                    return tab2;
+                if (secureNotes != null && secureNotes.size() > 0) {
+                    FragmentSecureNotes fragmentSecureNotes = new FragmentSecureNotes();
+                    fragmentSecureNotes.initDataSetSecureNote(secureNotes);
+                    return fragmentSecureNotes;
+
+                } else {
+                    FragmentEmptyState emptyState = new FragmentEmptyState();
+                    return emptyState;
+                }
+
             default:
-                EmptyFragment tab3 = new EmptyFragment();
-                return tab3;
+                FragmentEmptyState tabDefault = new FragmentEmptyState();
+                return tabDefault;
         }
     }
 

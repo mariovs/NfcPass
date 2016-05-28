@@ -1,100 +1,22 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
     tools:context=".FragmentOptionsAddSites">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="72dp"
-                android:gravity="center_vertical">
-
-                <RelativeLayout
-                    android:id="@+id/webLayoutLeftDefault"
-                    android:layout_width="72dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true">
-
-                    <ImageView
-                        android:id="@+id/imageViewWebItemDefault"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="16dp"
-                        android:background="@drawable/browser_default" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/RelativeLayoutWebItemDefault"
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:layout_toLeftOf="@+id/webLayoutRightDefault"
-                    android:layout_toRightOf="@id/webLayoutLeftDefault">
-
-                    <TextView
-                        android:id="@+id/textViewUrlDefault"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="roboto"
-                        android:paddingBottom="16dp"
-                        android:paddingTop="28dp"
-                        android:text="Adauga site web"
-                        android:textAppearance="?android:attr/textAppearance"
-                        android:textSize="16sp" />
-                </RelativeLayout>
-
-
-                <RelativeLayout
-                    android:id="@+id/webLayoutRightDefault"
-                    android:layout_width="72dp"
-
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true">
-
-                    <!--<ImageView-->
-                        <!--android:id="@+id/imageViewWebItemAddDefault"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:layout_alignParentLeft="true"-->
-                        <!--android:layout_alignParentStart="true"-->
-                        <!--android:layout_alignParentTop="true"-->
-                        <!--android:layout_marginBottom="16dp"-->
-                        <!--android:layout_marginLeft="16dp"-->
-                        <!--android:onClick="AddDefaultWebsiteCredentialsClick"-->
-                        <!--android:layout_marginRight="16dp"-->
-                        <!--android:layout_marginTop="16dp"-->
-                        <!--android:background="@drawable/add_black" />-->
-                    <com.github.clans.fab.FloatingActionButton
-                        android:id="@+id/fabAddDefaultCredential"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/fab_add"
-                        android:onClick="AddDefaultWebsiteCredentialsClick"
-                        style="@style/FabButtonAddSites" />
-                </RelativeLayout>
-            </RelativeLayout>
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
@@ -143,22 +65,41 @@
 
                 <RelativeLayout
                     android:id="@+id/webLayoutRightFacebook"
-                    android:layout_width="70dp"
+                    android:layout_width="72dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true">
 
-                    <com.github.clans.fab.FloatingActionButton
-                        android:id="@+id/fabItemAddFacebook"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/fab_add"
+                    <ImageButton
+                        android:id="@+id/ButtonItemAddFacebook"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerVertical="true"
                         android:onClick="FacebookCredentialsAddClick"
-                        style="@style/FabButtonAddSites" />
+                        android:paddingBottom="15dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="15dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/add_icon" />
+
+                    <!--<com.github.clans.fab.FloatingActionButton-->
+                    <!--android:id="@+id/fabItemAddFacebook"-->
+                    <!--android:layout_marginBottom="16dp"-->
+                    <!--android:layout_marginRight="16dp"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@drawable/fab_add"-->
+                    <!--android:onClick="FacebookCredentialsAddClick"-->
+                    <!--style="@style/FabButtonAddSites" />-->
                 </RelativeLayout>
             </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGreyedButton"></LinearLayout>
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
@@ -209,23 +150,41 @@
 
                 <RelativeLayout
                     android:id="@+id/webLayoutRightGmail"
-                    android:layout_width="70dp"
+                    android:layout_width="72dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true">
 
-
-                    <com.github.clans.fab.FloatingActionButton
-                        android:id="@+id/fabItemAddGmail"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/fab_add"
+                    <ImageButton
+                        android:id="@+id/ButtonfabItemAddGmail"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerVertical="true"
                         android:onClick="GmailCredentialsAddClick"
-                        style="@style/FabButtonAddSites" />
+                        android:paddingBottom="15dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="15dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/add_icon" />
+
+                    <!--<com.github.clans.fab.FloatingActionButton-->
+                    <!--android:id="@+id/fabItemAddGmail"-->
+                    <!--android:layout_marginBottom="16dp"-->
+                    <!--android:layout_marginRight="16dp"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@drawable/fab_add"-->
+                    <!--android:onClick="GmailCredentialsAddClick"-->
+                    <!--style="@style/FabButtonAddSites" />-->
                 </RelativeLayout>
             </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGreyedButton"></LinearLayout>
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
@@ -275,23 +234,42 @@
 
                 <RelativeLayout
                     android:id="@+id/webLayoutRightInstagram"
-                    android:layout_width="70dp"
+                    android:layout_width="72dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true">
-                    <com.github.clans.fab.FloatingActionButton
-                        android:id="@+id/fabItemAddInstagram"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/fab_add"
+
+                    <ImageButton
+                        android:id="@+id/ButtonItemAddInstagram"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerVertical="true"
                         android:onClick="InstagramCredentialsAddClick"
-                        style="@style/FabButtonAddSites" />
+                        android:paddingBottom="15dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="15dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/add_icon" />
+
+                    <!--<com.github.clans.fab.FloatingActionButton-->
+                    <!--android:id="@+id/fabItemAddInstagram"-->
+                    <!--android:layout_marginBottom="16dp"-->
+                    <!--android:layout_marginRight="16dp"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@drawable/fab_add"-->
+                    <!--android:onClick="InstagramCredentialsAddClick"-->
+                    <!--style="@style/FabButtonAddSites" />-->
 
                 </RelativeLayout>
             </RelativeLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGreyedButton"></LinearLayout>
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
@@ -341,23 +319,41 @@
 
                 <RelativeLayout
                     android:id="@+id/webLayoutRightDropbox"
-                    android:layout_width="70dp"
+                    android:layout_width="72dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true">
 
-                    <com.github.clans.fab.FloatingActionButton
-                        android:id="@+id/fabItemAddDropbox"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/fab_add"
+                    <ImageButton
+                        android:id="@+id/ButtonItemAddDropbox"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerVertical="true"
                         android:onClick="DropboxCredentialsAddClick"
-                        style="@style/FabButtonAddSites" />
+                        android:paddingBottom="15dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="15dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/add_icon" />
+
+                    <!--<com.github.clans.fab.FloatingActionButton-->
+                    <!--android:id="@+id/fabItemAddDropbox"-->
+                    <!--android:layout_marginBottom="16dp"-->
+                    <!--android:layout_marginRight="16dp"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@drawable/fab_add"-->
+                    <!--android:onClick="DropboxCredentialsAddClick"-->
+                    <!--style="@style/FabButtonAddSites" />-->
                 </RelativeLayout>
             </RelativeLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGreyedButton"></LinearLayout>
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
@@ -407,22 +403,41 @@
 
                 <RelativeLayout
                     android:id="@+id/webLayoutRightLinkedin"
-                    android:layout_width="70dp"
+                    android:layout_width="72dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true">
 
-                    <com.github.clans.fab.FloatingActionButton
-                        android:id="@+id/ItemAddLinkedin"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/fab_add"
+                    <ImageButton
+                        android:id="@+id/ButtonAddLinkedin"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerVertical="true"
                         android:onClick="LinkedInCredentialsAddClick"
-                        style="@style/FabButtonAddSites" />
+                        android:paddingBottom="15dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="15dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/add_icon" />
+
+                    <!--<com.github.clans.fab.FloatingActionButton-->
+                    <!--android:id="@+id/ItemAddLinkedin"-->
+                    <!--android:layout_marginBottom="16dp"-->
+                    <!--android:layout_marginRight="16dp"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@drawable/fab_add"-->
+                    <!--android:onClick="LinkedInCredentialsAddClick"-->
+                    <!--style="@style/FabButtonAddSites" />-->
                 </RelativeLayout>
             </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGreyedButton"></LinearLayout>
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
@@ -472,22 +487,41 @@
 
                 <RelativeLayout
                     android:id="@+id/webLayoutRightMyspace"
-                    android:layout_width="70dp"
+                    android:layout_width="72dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true">
 
-                    <com.github.clans.fab.FloatingActionButton
-                        android:id="@+id/ItemItemAddMyspace"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/fab_add"
+                    <ImageButton
+                        android:id="@+id/ButtonItemAddMyspace"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerVertical="true"
                         android:onClick="MyspaceCredentialsAddClick"
-                        style="@style/FabButtonAddSites" />
+                        android:paddingBottom="15dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="15dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/add_icon" />
+
+                    <!--<com.github.clans.fab.FloatingActionButton-->
+                    <!--android:id="@+id/ItemItemAddMyspace"-->
+                    <!--android:layout_marginBottom="16dp"-->
+                    <!--android:layout_marginRight="16dp"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@drawable/fab_add"-->
+                    <!--android:onClick="MyspaceCredentialsAddClick"-->
+                    <!--style="@style/FabButtonAddSites" />-->
                 </RelativeLayout>
             </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGreyedButton"></LinearLayout>
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
@@ -541,19 +575,123 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true">
 
-                    <com.github.clans.fab.FloatingActionButton
-                        android:id="@+id/ItemItemItemAddTwitter"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/fab_add"
+                    <ImageButton
+                        android:id="@+id/ButtonItemItemAddTwitter"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerVertical="true"
                         android:onClick="TwitterCredentialsAddClick"
-                        style="@style/FabButtonAddSites" />
+                        android:paddingBottom="15dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="15dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/add_icon" />
+
+
+                    <!--<com.github.clans.fab.FloatingActionButton-->
+                    <!--android:id="@+id/ItemItemItemAddTwitter"-->
+                    <!--android:layout_marginBottom="16dp"-->
+                    <!--android:layout_marginRight="16dp"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@drawable/fab_add"-->
+                    <!--android:onClick="TwitterCredentialsAddClick"-->
+                    <!--style="@style/FabButtonAddSites" />-->
                 </RelativeLayout>
             </RelativeLayout>
-    </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGreyedButton"></LinearLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:gravity="center_vertical">
+
+                <RelativeLayout
+                    android:id="@+id/webLayoutLeftDefault"
+                    android:layout_width="72dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true">
+
+                    <ImageView
+                        android:id="@+id/imageViewWebItemDefault"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/browser_default" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/RelativeLayoutWebItemDefault"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/webLayoutRightDefault"
+                    android:layout_toRightOf="@id/webLayoutLeftDefault">
+
+                    <TextView
+                        android:id="@+id/textViewUrlDefault"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="roboto"
+                        android:paddingBottom="16dp"
+                        android:paddingTop="28dp"
+                        android:text="Adauga site web"
+                        android:textAppearance="?android:attr/textAppearance"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/webLayoutRightDefault"
+                    android:layout_width="72dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true">
+                    <!--<Button-->
+                    <!--android:id="@+id/ButtonAddFacebookCredentials"-->
+                    <!--android:layout_width="64dp"-->
+                    <!--android:layout_height="36dp"-->
+                    <!--android:layout_marginTop="20dp"-->
+                    <!--android:text="Add"-->
+                    <!--android:textSize="14sp"-->
+                    <!--android:fontFamily="roboto"-->
+                    <!--android:textColor="@color/colorPrimary"-->
+                    <!--android:onClick="AddDefaultWebsiteCredentialsClick"-->
+                    <!--style="@style/Widget.AppCompat.Button.Borderless"/>-->
+                    <ImageButton
+                        android:id="@+id/imageViewWebItemAdd"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerVertical="true"
+                        android:onClick="AddDefaultWebsiteCredentialsClick"
+                        android:paddingBottom="15dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="15dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/add_icon" />
+
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGreyedButton"></LinearLayout>
+        </LinearLayout>
     </ScrollView>
 
 

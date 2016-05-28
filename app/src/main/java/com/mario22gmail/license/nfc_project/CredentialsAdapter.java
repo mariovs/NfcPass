@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -98,17 +99,57 @@ public class CredentialsAdapter extends RecyclerView.Adapter<CredentialsAdapter.
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         Log.d(TAG, "Element " + position + " set.");
 
-        ImageView navigateIcon = (ImageView) viewHolder.itemView.findViewById(R.id.navigateWebFromItem);
+        RelativeLayout rowLayout = (RelativeLayout) viewHolder.itemView.findViewById(R.id.RelativeLayoutWebItem);
+        rowLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WebsitesCredentials credential = mDataSet.get(position);
+                Intent myIntent = new Intent("start.fragment.action");
+                myIntent.putExtra("myCredentials", credential);
+                NavigationDrawerActivity.getAppContext().sendBroadcast(myIntent);
+            }
+        });
+
+
+        ImageButton navigateIcon = (ImageButton) viewHolder.itemView.findViewById(R.id.webItemNavigateIcon);
         navigateIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WebsitesCredentials credential =mDataSet.get(position);
+                WebsitesCredentials credential = mDataSet.get(position);
                 Intent myIntent = new Intent("start.fragment.action");
-                myIntent.putExtra("myCredentials",credential);
+                myIntent.putExtra("myCredentials", credential);
                 NavigationDrawerActivity.getAppContext().sendBroadcast(myIntent);
 
             }
         });
+
+        final ImageButton editIcon = (ImageButton) viewHolder.itemView.findViewById(R.id.webItemEditIcon);
+        editIcon.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                WebsitesCredentials credential = mDataSet.get(position);
+                Intent editIntent = new Intent("editWebCredential");
+                editIntent.putExtra("credential", credential);
+                NavigationDrawerActivity.getAppContext().sendBroadcast(editIntent);
+            }
+        });
+
+        final ImageButton deleteIcon = (ImageButton) viewHolder.itemView.findViewById(R.id.webItemDeleteIcon);
+        deleteIcon.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                WebsitesCredentials credential = mDataSet.get(position);
+                Intent deleteIntent = new Intent("deleteWebCredential");
+                deleteIntent.putExtra("credential",credential);
+                NavigationDrawerActivity.getAppContext().sendBroadcast(deleteIntent);
+            }
+        });
+
+
+
+
         viewHolder.getUserNameTextView().setText(mDataSet.get(position).getUserName());
         setImageForCredential(viewHolder, mDataSet.get(position));
     }

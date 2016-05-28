@@ -1,0 +1,51 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FragmentStartPage">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="Apropie cardul NFC pentru a incepe"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="18sp"
+            android:layout_above="@+id/start_Image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp" />
+
+        <ImageView
+            android:id="@+id/start_Image"
+            android:layout_width="450dp"
+            android:layout_height="450dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/nfc_start"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+
+
+        <!--<TextView-->
+            <!--android:id="@+id/description"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Descriere"-->
+            <!--android:gravity="center"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:layout_gravity="bottom|center"-->
+            <!--android:maxEms="18"-->
+            <!--android:layout_marginLeft="32dp"-->
+            <!--android:layout_marginRight="32dp"-->
+            <!--android:layout_marginBottom="32dp"-->
+            <!--android:textSize="20sp"/>-->
+
+    </RelativeLayout>
+</FrameLayout>
